@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 from random import randrange
 from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 
@@ -14,7 +13,8 @@ data_for_drop = ['Level', 'shortwave_radiation (W/m²)', 'direct_radiation (W/m�
                  'soil_temperature_28_to_100cm (°C)', 'soil_temperature_100_to_255cm (°C)',
                  'soil_moisture_100_to_255cm (m³/m³)', 'soil_moisture_28_to_100cm (m³/m³)']
 train_number = 1000
-interval = randrange(3, 18)
+start_interval = 3
+end_interval = 18
 model = RandomForestRegressor(random_state=1)
 model.set_params(n_estimators=175)
 
@@ -42,7 +42,7 @@ def score(rand_features):
 
 
 for x in range(train_number):
-    rand_features = random.sample(features_list, interval)
+    rand_features = random.sample(features_list, randrange(start_interval, end_interval))
     scores_array = score(rand_features)
     scores = [scores_array[3], scores_array[0], "[" + scores_array[1] + "]", scores_array[2]]
     frame_array.append(scores)
